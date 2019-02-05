@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: OSCON Static Content Tutorial (Lesson 3)
+Description: Serverless Content Delivery (Phase 3)
 
 Parameters:
 
@@ -35,22 +35,22 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-        - Id: S3Origin
-          DomainName: !Select [1, !Split ['://', !GetAtt Bucket.WebsiteURL]]
-          CustomOriginConfig:
-            OriginProtocolPolicy: http-only
-        Enabled: 'true'
+          - Id: S3Origin
+            DomainName: !Select [1, !Split ['://', !GetAtt Bucket.WebsiteURL]]
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+        Enabled: true
         DefaultRootObject: index.html
         Aliases:
           - !Ref DomainName
           - !Join ['.', ['www', !Ref DomainName]]
         DefaultCacheBehavior:
           AllowedMethods:
-          - GET
-          - HEAD
+            - GET
+            - HEAD
           TargetOriginId: S3Origin
           ForwardedValues:
-            QueryString: 'false'
+            QueryString: false
             Cookies:
               Forward: none
           ViewerProtocolPolicy: allow-all
@@ -62,13 +62,13 @@ Resources:
     Properties:
       HostedZoneName: !Ref HostedZoneName
       RecordSets:
-      - Name: !Ref DomainName
-        Type: A
-        AliasTarget:
-          DNSName: !GetAtt CloudFrontDistribution.DomainName
-          HostedZoneId: Z2FDTNDATAQYW2 # Universal CloudFront Hosted Zone ID
-      - Name: !Join ['.', ['www', !Ref DomainName]]
-        Type: A
-        AliasTarget:
-          DNSName: !GetAtt CloudFrontDistribution.DomainName
-          HostedZoneId: Z2FDTNDATAQYW2
+        - Name: !Ref DomainName
+          Type: A
+          AliasTarget:
+            DNSName: !GetAtt CloudFrontDistribution.DomainName
+            HostedZoneId: Z2FDTNDATAQYW2 # Universal CloudFront Hosted Zone ID
+        - Name: !Join ['.', ['www', !Ref DomainName]]
+          Type: A
+          AliasTarget:
+            DNSName: !GetAtt CloudFrontDistribution.DomainName
+            HostedZoneId: Z2FDTNDATAQYW2

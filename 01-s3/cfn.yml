@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: OSCON Static Content Tutorial (Lesson 1)
+Description: Serverless Content Delivery (Phase 1)
 
 Resources:
 

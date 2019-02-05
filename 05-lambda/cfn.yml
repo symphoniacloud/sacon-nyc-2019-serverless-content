@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: OSCON Static Content Tutorial (Lesson 5)
+Description: Serverless Content Delivery (Phase 5)
 
 Parameters:
 
@@ -52,18 +52,18 @@ Resources:
             DomainName: !GetAtt Bucket.DomainName
             S3OriginConfig:
               OriginAccessIdentity: !Join ["", ["origin-access-identity/cloudfront/", !Ref OriginAccessIdentity]]
-        Enabled: 'true'
+        Enabled: true
         DefaultRootObject: index.html
         Aliases:
           - !Ref DomainName
           - !Join ['.', ['www', !Ref DomainName]]
         DefaultCacheBehavior:
           AllowedMethods:
-          - GET
-          - HEAD
+            - GET
+            - HEAD
           TargetOriginId: S3Origin
           ForwardedValues:
-            QueryString: 'false'
+            QueryString: false
             Cookies:
               Forward: none
           ViewerProtocolPolicy: allow-all
@@ -76,7 +76,7 @@ Resources:
             ViewerProtocolPolicy: https-only
             TargetOriginId: S3SecureOrigin
             ForwardedValues:
-              QueryString: 'false'
+              QueryString: false
               Cookies:
                 Forward: none
             LambdaFunctionAssociations:
@@ -92,16 +92,16 @@ Resources:
     Properties:
       HostedZoneName: !Ref HostedZoneName
       RecordSets:
-      - Name: !Ref DomainName
-        Type: A
-        AliasTarget:
-          DNSName: !GetAtt CloudFrontDistribution.DomainName
-          HostedZoneId: Z2FDTNDATAQYW2 # Universal CloudFront Hosted Zone ID
-      - Name: !Join ['.', ['www', !Ref DomainName]]
-        Type: A
-        AliasTarget:
-          DNSName: !GetAtt CloudFrontDistribution.DomainName
-          HostedZoneId: Z2FDTNDATAQYW2
+        - Name: !Ref DomainName
+          Type: A
+          AliasTarget:
+            DNSName: !GetAtt CloudFrontDistribution.DomainName
+            HostedZoneId: Z2FDTNDATAQYW2 # Universal CloudFront Hosted Zone ID
+        - Name: !Join ['.', ['www', !Ref DomainName]]
+          Type: A
+          AliasTarget:
+            DNSName: !GetAtt CloudFrontDistribution.DomainName
+            HostedZoneId: Z2FDTNDATAQYW2
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
@@ -119,7 +119,7 @@ Resources:
     Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
     Properties:
       CloudFrontOriginAccessIdentityConfig:
-        Comment: 'oscon-s3-secure'
+        Comment: 's3-secure'
 
   BasicAuthFunction:
     Type: AWS::Serverless::Function

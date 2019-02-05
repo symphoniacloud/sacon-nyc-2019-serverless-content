@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: OSCON Static Content Tutorial (Lesson 2)
+Description: Serverless Content Delivery (Phase 2)
 
 Resources:
 
@@ -28,19 +28,19 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-        - Id: S3Origin
-          DomainName: !Select [1, !Split ['://', !GetAtt Bucket.WebsiteURL]]
-          CustomOriginConfig:
-            OriginProtocolPolicy: http-only
-        Enabled: 'true'
+          - Id: S3Origin
+            DomainName: !Select [1, !Split ['://', !GetAtt Bucket.WebsiteURL]]
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+        Enabled: true
         DefaultRootObject: index.html
         DefaultCacheBehavior:
           AllowedMethods:
-          - GET
-          - HEAD
+            - GET
+            - HEAD
           TargetOriginId: S3Origin
           ForwardedValues:
-            QueryString: 'false'
+            QueryString: false
             Cookies:
               Forward: none
           ViewerProtocolPolicy: allow-all
