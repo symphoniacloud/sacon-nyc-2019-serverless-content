@@ -1,3 +1,11 @@
+# Serverless Content Delivery (aka Livin' on the Edge)
+
+The lines between static and dynamic content are blurred, and it’s more difficult than ever to choose the right technologies for your requirements and budget. [Symphonia's](https://www.symphonia.io) [John Chapin](https://twitter.com/johnchapin) takes you on a step-by-step journey from hosting static content on AWS S3 to deploying dynamic, complex business logic mere milliseconds away from your users with AWS CloudFront, Lambda@Edge, and more. Along the way, John explores complementary features such as custom DNS, SSL encryption, and metrics and logging.
+
+In addition to those technologies, John addresses operational concerns like deployment and updates, cost control (especially given the scalability of the technology involved), and security from both an application and an AWS perspective. John concludes by detailing some of the idiosyncrasies of the approach, including the inherent limitations of the Lambda@Edge execution environment. You’ll leave with functioning, parameterized infrastructure templates to build your own serverless content stack.
+
+While the examples will be primarily oriented around AWS, the concepts are applicable to other cloud platforms.
+
 ## Phase 1 - S3
 
 Create an S3 bucket and bucket policy in your AWS account.
