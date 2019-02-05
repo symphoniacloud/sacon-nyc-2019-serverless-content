@@ -56,7 +56,8 @@ $ curl -o /dev/null -s -w "%{time_total}\n" "http://${BUCKET}.s3-website-us-east
 Update the CloudFormation stack
 
 ```
-$aws cloudformation update-stack \
+$ cd phase2
+$ aws cloudformation update-stack \
     --template-body file://cfn.yml \
     --stack-name serverless-content
 ```
@@ -95,6 +96,7 @@ curl -o /dev/null -s -w "%{time_total}\n" "http://${CLOUDFRONT_DOMAIN}"
 Update the CloudFormation stack
 
 ```
+$ cd phase3
 $ aws cloudformation update-stack \
     --template-body file://cfn.yml \
     --stack-name serverless-content \
@@ -113,6 +115,7 @@ $ open "http://hello.serverless-content.symphonia.io"
 Update the CloudFormation stack
 
 ```
+$ cd phase4
 $ aws cloudformation update-stack \
     --template-body file://cfn.yml \
     --stack-name serverless-content \
@@ -134,6 +137,7 @@ $ open "https://hello.serverless-content.symphonia.io"
 Deploy the SAM bootstrap stack
 
 ```
+$ cd phase5
 $ aws cloudformation create-stack \
     --stack-name sam-bootstrap \
     --template-body file://sam-bootstrap-cfn.yml
