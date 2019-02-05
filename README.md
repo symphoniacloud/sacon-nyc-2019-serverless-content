@@ -118,7 +118,7 @@ Validate the certificate (via email, or DNS)
 Open the site using the HTTPS protocol
 
 ```
-$ open "http://hello.serverless-content.symphonia.io"
+$ open "https://hello.serverless-content.symphonia.io"
 ```
 
 ## Phase 5 - Lambda @ Edge
