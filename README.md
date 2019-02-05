@@ -126,7 +126,7 @@ $ open "https://hello.serverless-content.symphonia.io"
 Deploy the SAM bootstrap stack
 
 ```
-$aws cloudformation create-stack \
+$ aws cloudformation create-stack \
     --stack-name sam-bootstrap \
     --template-body file://sam-bootstrap-cfn.yml
 ```
@@ -147,7 +147,7 @@ Note the missing `file://` syntax. The `package` and `deploy` commands are for t
 
 ```
 $ aws cloudformation package \
-      --s3-bucket ${SAM_BUCKET} \
+    --s3-bucket ${SAM_BUCKET} \
     --template-file cfn.yml \
     --output-template-file cfn-packaged.yml
 ```
@@ -155,8 +155,8 @@ $ aws cloudformation package \
 Note that by using `deploy`, we don't have to specify unchanged parameter values.
 
 ```
-$aws cloudformation deploy \
-     --capabilities CAPABILITY_IAM \
+$ aws cloudformation deploy \
+    --capabilities CAPABILITY_IAM \
     --template-file cfn-packaged.yml \
     --stack-name serverless-content
 ```
@@ -165,6 +165,12 @@ Upload the new "secure" content
 
 ```
 $ aws s3 sync content s3://${BUCKET}
+```
+
+Try to load the secret file using the S3 bucket URL:
+
+```
+$ open "http://${BUCKET}.s3-website-us-east-1.amazonaws.com/secure/secret.html"
 ```
 
 Visit the secure area of the site:
